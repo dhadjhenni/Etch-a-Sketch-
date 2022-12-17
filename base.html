@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html class="noJS" lang="fr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+
+    <title>Etch-a-Sketch</title>
+
+    <script>
+        const hasJS = function() {
+            const htmlTag = document.getElementsByTagName('html')[0];
+            const htmlClass = htmlTag.className.replace('noJS', 'hasJS');
+            htmlTag.className = htmlClass;
+        }();
+    </script>
+</head>
+<body>
+    <!-- START : content -->
+    <div id="content">
+
+        <header>
+            <h1>Etch-a-Sketch</h1>
+        </header>
+
+        <aside>
+            <button id="make">Make something</button>
+        </aside>
+
+        <div id="grid" style=""></div>
+    </div>
+    <!-- END : content -->
+
+    <!-- START : scripts -->
+    <script>    
+
+        const grid = document.querySelector('#grid');
+        const gridSize = grid.offsetWidth;
+        const makeBtn = document.querySelector('#make');
+       
+        for (let i = 0; i <= 255; i++){
+            let div = document.createElement('div');
+            grid.append(div);
+        }
+
+        const squares = document.querySelectorAll('#grid > div');
+
+        squares.forEach(square => square.addEventListener('mouseover', function(){
+            this.classList.add('active');
+        }));
+
+        squares.forEach(square => square.addEventListener('mouseleave', function(){
+            this.classList.remove('active');
+        }));
+
+        makeBtn.addEventListener('click', function(){
+            let nbSquares = prompt('Give us the number of squares');
+
+            if(nbSquares > 0 && nbSquares <= 100){
+                grid.innerHTML = '';
+
+                for (let i = 0; i < Math.pow(nbSquares, 2); i++){
+                    console.log(i)
+                    let div = document.createElement('div');
+                    grid.append(div);
+
+                    grid.style.setProperty('grid-template-columns', 'repeat('+ nbSquares +', 1fr)');
+                    grid.style.setProperty('grid-template-rows', 'repeat('+ nbSquares +', 1fr)');
+
+                    grid.style.setProperty('background', 'red');
+
+                }
+
+            } else {
+                prompt('Please enter a number > 0 & < 100')
+            }
+
+        });
+
+    </script>
+</body>
+</html>
